@@ -13,10 +13,10 @@
     <body>
             <div class="column">
                 <table style="width: 100%;">
-                <th style="text-align: center;">Today is {{calendar[-1][-1]}}</th>
+                <th style="text-align: center;">Today is {{calendar[-1][-2]}}, {{calendar[-1][-1]}}</th>
                 </table>
                 {%for x in calendar%}
-                <table style="width: 100%; border-top: 1px solid grey;">
+                <!--table style="width: 100%; border-top: 1px solid grey;">
                     <tr>
                         <td style="line-height: 1; margin: 0; text-align: left; width: 75%; font-size: 70%;">{{x[0]}}</td>
                         <td style="line-height: 1; margin: 0; text-align: right; width: 50%; font-size: 30px;">{{x[3]}}</td>
@@ -24,6 +24,16 @@
                     <tr>
                         <td style="line-height: 1; margin: 0; text-align: left; width: 25%; font-size: 20px; color: grey;">{{x[1]}}</td>
                         <td style="line-height: 1; margin: 0; text-align: right; width: 50%; font-size: 25px;">{{x[2]}}</td>
+                    </tr>
+                </table-->
+                <table style="width: 100%; border-bottom: 1px solid grey;">
+                    <tr style="width: fit-content;">
+                        <td style="line-height: 1; margin: 0; text-align: left; width: 25%; font-size: 30px;">{{x[3]}}</td>
+                        <td style="line-height: 1; margin: 0; text-align: left; width: 75%; font-size: 70%;">{{x[0]}}</td>
+                    </tr>
+                    <tr>
+                        <td style="line-height: 1; margin: 0; text-align: left; width: 50%; font-size: 25px;">{{x[2]}}</td>
+                        <td style="line-height: 1; margin: 0; text-align: left; width: 25%; font-size: 20px; color: grey;">{{x[1]}}</td>
                     </tr>
                 </table>
                 {%endfor%}

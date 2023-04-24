@@ -74,6 +74,9 @@ def index():
     end_date = datetime.datetime.utcnow().isoformat() + 'Z'
     today_iso = datetime.datetime.now()
     today = today_iso.strftime('%b %d')
+    start_date_z = datetime.datetime.now().date()
+
+    day_name = today_iso.strftime('%a')
     tomorrow_iso = today_iso + datetime.timedelta(days=1)
     tomorrow = tomorrow_iso.strftime('%b %d')
     week_iso = today_iso + datetime.timedelta(days=6)
@@ -97,6 +100,7 @@ def index():
             try:
                 start_iso = event['start']['dateTime']
                 start_iso_slice = datetime.datetime.strptime(start_iso[slice(-6)], '%Y-%m-%dT%H:%M:%S')
+                start_day_slice = datetime.datetime.strptime(start_iso[slice(-15)], '%Y-%m-%d').date()
                 start_time = datetime.datetime.strptime(start_iso, '%Y-%m-%dT%H:%M:%S%z').strftime('%I:%M %p')
                 start_date = datetime.datetime.strptime(start_iso, '%Y-%m-%dT%H:%M:%S%z').strftime('%b %d')
                 start_day = datetime.datetime.strptime(start_iso, '%Y-%m-%dT%H:%M:%S%z').strftime('%a')
@@ -107,6 +111,7 @@ def index():
                 start_time = 'All Day'
                 start_date = datetime.datetime.strptime(start_iso, '%Y-%m-%d').strftime('%b %d')
                 start_day = datetime.datetime.strptime(start_iso, '%Y-%m-%d').strftime('%a')
+
             if today > week:
                 start_date
             elif today == start_date:
@@ -115,8 +120,16 @@ def index():
                 start_date = 'Tomorrow'
             elif week_iso > start_iso_slice:
                 start_date = start_day
-                
-            calendar.append([summary, location, start_time, start_date, today])
+            
+            try:
+                days_till = start_day_slice-start_date_z
+                print(days_till.days)
+                print(start_day_slice, start_date_z)
+            except TypeError as e:
+                print(e)
+                print(start_day_slice, start_date_z)
+
+            calendar.append([summary, location, start_time, start_date, day_name, today])
     return render_template('calendar.html',calendar=calendar)
 
 
